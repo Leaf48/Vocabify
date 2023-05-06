@@ -41,7 +41,7 @@ function Footer() {
   }, [geolocation])
 
   return (
-    <footer className='bg-zinc-800'>
+    <footer className='component-container border-t-2 border-blue-950'>
       <div className='relative md:p-10'>
         <p className='max-md:text-center font-mono text-red-200 md:absolute md:bottom-3 md:right-2'>
           Your IP Address: {geolocation?.ip ? geolocation.ip : "Loading..."}, 

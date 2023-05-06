@@ -8,5 +8,16 @@
 }
 
 .app-container{
-    background-color: #414558;
+    /* background-color: #414558; */
+    /* background-color: rgb(15 23 42); */
+}
+
+/* BACKGROUND COLOR FOR BACKGROUND */
+.component-container{
+    background-color: rgb(15 23 42);
+}
+
+/* DEFAULT BUTTON BACKGROUND COLOR */
+.button{
+    background-color: rgb(30 41 59);
 }

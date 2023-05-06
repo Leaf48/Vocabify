@@ -9,16 +9,19 @@ function Search() {
   const {word, nounWord} = useContext(WordContext)
 
   return (
-    <div>
+    <>
       <InputForm />
-      <div>{word}</div>
-      <div>{nounWord?.words}</div>
+
       <div>
-        {
-          nounWord?.words.join(", ")
-        }
+      <div>{nounWord?.type}: {word}</div>
+        <p>{nounWord?.type}</p>
+        <div>
+          {
+            nounWord?.words.join(", ")
+          }
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 

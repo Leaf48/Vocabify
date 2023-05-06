@@ -12,7 +12,8 @@ function App() {
   return (
     <>
       <Header />
-      <div className='app-container'>
+      {/* <div className='app-container'> */}
+      <div className='component-container'>
         <WordProvider>
           <Routes>
             <Route path='/' element={<Home />}/>
