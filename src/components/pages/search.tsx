@@ -3,7 +3,10 @@ import axios from 'axios'
 import * as cheerio from "cheerio"
 
 const api = {
-  "noun": "http://localhost:5000/scrape?url=https://www.wordhippo.com/what-is/the-noun-for/"
+  "noun": "http://localhost:5000/scrape?url=https://www.wordhippo.com/what-is/the-noun-for/",
+  "verb": "http://localhost:5000/scrape?url=https://www.wordhippo.com/what-is/the-verb-for/",
+  "adjective": "http://localhost:5000/scrape?url=https://www.wordhippo.com/what-is/the-adjective-for/",
+  "adverb": "http://localhost:5000/scrape?url=https://www.wordhippo.com/what-is/the-adverb-for/",
 }
 
 const scrape = async (url: string, word: string): Promise<Array<string>> => {
@@ -53,11 +56,27 @@ function Search() {
     })
   }, [])
 
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
   return (
-    <>
+    <div>
       <div>{ip}</div>
       <div>{noun}</div>
-    </>
+    </div>
   )
 }
 

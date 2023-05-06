@@ -6,3 +6,7 @@
     box-sizing: border-box;
     margin: 0;
 }
+
+.app-container{
+    background-color: #414558;
+}
