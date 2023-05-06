@@ -12,14 +12,14 @@ function Search() {
     <>
       <InputForm />
 
-      <div>
-      <div>{nounWord?.type}: {word}</div>
-        <p>{nounWord?.type}</p>
-        <div>
-          {
-            nounWord?.words.join(", ")
-          }
-        </div>
+      <div className=''>
+        <div>{nounWord?.type}: {word}</div>
+          <p>{nounWord?.type}</p>
+          <div>
+            {
+              nounWord?.words.join(", ")
+            }
+          </div>
       </div>
     </>
   )

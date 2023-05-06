@@ -18,10 +18,10 @@ interface IWord {
 }
 
 const apis = {
-    "noun": "http://localhost:5000/scrape?url=https://www.wordhippo.com/what-is/the-noun-for/",
-    "verb": "http://localhost:5000/scrape?url=https://www.wordhippo.com/what-is/the-verb-for/",
-    "adjective": "http://localhost:5000/scrape?url=https://www.wordhippo.com/what-is/the-adjective-for/",
-    "adverb": "http://localhost:5000/scrape?url=https://www.wordhippo.com/what-is/the-adverb-for/",
+    "noun": "http://192.168.2.169:5000/scrape?url=https://www.wordhippo.com/what-is/the-noun-for/",
+    "verb": "http://192.168.2.169:5000/scrape?url=https://www.wordhippo.com/what-is/the-verb-for/",
+    "adjective": "http://192.168.2.169:5000/scrape?url=https://www.wordhippo.com/what-is/the-adjective-for/",
+    "adverb": "http://192.168.2.169:5000/scrape?url=https://www.wordhippo.com/what-is/the-adverb-for/",
   }
 
 export const WordContext = createContext<IWordContext>({
@@ -69,6 +69,7 @@ export const WordProvider = (props: any) => {
             type: "Noun",
             words: w
         })
+
     }
     const getVerb = async (word: string): Promise<void> => {
         // smth
