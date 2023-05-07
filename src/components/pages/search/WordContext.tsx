@@ -4,16 +4,21 @@ import { createContext, useState } from "react";
 
 interface IWordContext{
     word: string
-    setWord: React.Dispatch<React.SetStateAction<string>>,
-    getNoun(word: string): Promise<void>,
-    getVerb(word: string): Promise<void>,
-    getAdj(word: string): Promise<void>,
-    getAdv(word: string): Promise<void>,
+    setWord: React.Dispatch<React.SetStateAction<string>>
+    getNoun(word: string): void
+    getVerb(word: string): void
+    getAdj(word: string): void
+    getAdv(word: string): void
     nounWord: IWord | null
+    setNounWord: React.Dispatch<React.SetStateAction<IWord | null>>
+    submitted: boolean
+    setSubmitted: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 interface IWord {
+    status: "Success" | "Failed"
     type: "Noun" | "Verb" | "Adjective" | "Adverb"
+    word: string
     words: Array<string>
 }
 
@@ -27,14 +32,17 @@ const apis = {
 export const WordContext = createContext<IWordContext>({
     word: "",
     setWord: () => {},
-    getNoun: () => Promise.resolve(),
-    getVerb: () => Promise.resolve(),
-    getAdj: () => Promise.resolve(),
-    getAdv: () => Promise.resolve(),
-    nounWord: null
+    getNoun: () => {},
+    getVerb: () => {},
+    getAdj: () => {},
+    getAdv: () => {},
+    nounWord: null,
+    setNounWord: () => {},
+    submitted: false,
+    setSubmitted: () => {}
 })
 
-const scrape = async (url: string, word: string): Promise<Array<string>> => {
+const scrape = async (url: string, word: string): Promise<Array<string> | null> => {
     try{
         const URL = url + word + ".html"
         const {data} = await axios.get(URL)
@@ -50,7 +58,7 @@ const scrape = async (url: string, word: string): Promise<Array<string>> => {
 
     } catch(e){
         console.error(e)
-        return []
+        return null
     }
 }
 
@@ -62,29 +70,35 @@ export const WordProvider = (props: any) => {
 
     const [nounWord, setNounWord] = useState<IWord | null>(null)
 
-    const getNoun = async (word: string): Promise<void> => {
+    const [submitted, setSubmitted] = useState<boolean>(false)
+
+    const getNoun = async (word: string) => {
         const w = await scrape(apis["noun"], word)
 
         setNounWord({
+            status: w ? "Success" : "Failed",
             type: "Noun",
-            words: w
+            word: word,
+            words: w ? w : []
         })
-
     }
-    const getVerb = async (word: string): Promise<void> => {
+    const getVerb = async (word: string) => {
         // smth
     }
-    const getAdj = async (word: string): Promise<void> => {
+    const getAdj = async (word: string) => {
         // smth
     }
-    const getAdv = async (word: string): Promise<void> => {
+    const getAdv = async (word: string) => {
         // smth
     }
 
 
     return (
         <WordContext.Provider value={{
-            word, setWord, getNoun, getVerb, getAdv, getAdj, nounWord
+            word, setWord, 
+            getNoun, getVerb, getAdv, getAdj, 
+            nounWord, setNounWord,
+            submitted, setSubmitted
         }}>
             {children}
         </WordContext.Provider>
