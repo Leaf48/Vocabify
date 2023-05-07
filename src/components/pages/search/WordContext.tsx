@@ -42,6 +42,7 @@ export const WordContext = createContext<IWordContext>({
     setSubmitted: () => {}
 })
 
+// scrape only word
 const scrape = async (url: string, word: string): Promise<Array<string> | null> => {
     try{
         const URL = url + word + ".html"
@@ -66,10 +67,13 @@ const scrape = async (url: string, word: string): Promise<Array<string> | null> 
 export const WordProvider = (props: any) => {
     const {children} = props
 
+    // set word
     const [word, setWord] = useState<string>("")
 
+    // noun
     const [nounWord, setNounWord] = useState<IWord | null>(null)
 
+    // is form submitted
     const [submitted, setSubmitted] = useState<boolean>(false)
 
     const getNoun = async (word: string) => {

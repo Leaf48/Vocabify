@@ -19,7 +19,6 @@ function Search() {
             <p className='inline text-3xl'>{nounWord?.type} of </p>{nounWord?.word}
           </div>
         }
-        <p>{nounWord?.type}</p>
         <div>
           {
             nounWord?.words.join(", ")
