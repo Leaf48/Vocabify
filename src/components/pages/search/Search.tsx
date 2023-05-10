@@ -3,27 +3,66 @@ import axios from 'axios'
 import * as cheerio from "cheerio"
 import { WordContext } from './WordContext'
 import InputForm from './InputForm'
+import { IWord, IWordDefinition } from './constants'
 
 
 function Search() {
-  const {word, nounWord, submitted} = useContext(WordContext)
+  const {nounWord, verbWord, adjectiveWord, adverbWord ,submitted, selectedWord, setSelectedWord} = useContext(WordContext)
+
+  const part: Array<IWord | null> = [nounWord, verbWord, adjectiveWord, adverbWord]
+
+
+  const handleClick = (word: IWordDefinition) => {
+    setSelectedWord(word)
+  }
 
   return (
     <>
       <InputForm />
 
+      {selectedWord &&
+        <div className='text-white text-6xl'>
+          <div>Word: <p className='text-lg'>{selectedWord.word}</p></div>
+          <div>Definition: <p className='text-lg'>{selectedWord.meaning}</p></div>
+        </div>
+        
+      }
+
       <div className='p-5 font-serif text-white'>
+
         {
           submitted &&
-          <div className='text-6xl mb-3'>
-            <p className='inline text-3xl'>{nounWord?.type} of </p>{nounWord?.word}
-          </div>
+          part.map((v, index) => {
+            if(v?.words.length !== 0){
+              return (
+
+                <div key={index}>
+
+                  <div className='text-6xl mb-3'>
+                    <p className='inline text-3xl'>{v?.type} of </p>{v?.word}
+                  </div>
+
+                  <div className='text-2xl'>
+                    {v?.words.map((word, j) => (
+                        <span key={j} onClick={() => handleClick(word)} 
+                        className={`
+                          hover:text-red-400 ease-in-out duration-300
+                          ${(selectedWord?.word === word.word) && (selectedWord.type === word.type) ? "text-red-400" : ""}
+                        `}
+                        >
+                          {word.word}{" "}
+                        </span>
+                    ))}
+                  </div>
+
+                </div>
+
+              )
+            }
+          })
         }
-        <div>
-          {
-            nounWord?.words.join(", ")
-          }
-        </div>
+
+
       </div>
     </>
   )

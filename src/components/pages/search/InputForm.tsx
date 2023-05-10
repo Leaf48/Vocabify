@@ -3,7 +3,7 @@ import { WordContext } from './WordContext'
 
 const InputForm = () => {
     const {
-        word, setWord, getNoun, setNounWord, nounWord, submitted, setSubmitted
+        word, setWord, getNoun, getVerb, getAdj, getAdv, setSubmitted, selectedWord, setSelectedWord
     } = useContext(WordContext)
 
     const inputRef = useRef<HTMLInputElement>(null)
@@ -21,6 +21,9 @@ const InputForm = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         getNoun(word)
+        getVerb(word)
+        getAdj(word)
+        getAdv(word)
         setSubmitted(true)
     }
     
@@ -47,7 +50,7 @@ const InputForm = () => {
                 }
             </form>
             
-            <button onClick={() => {getNoun(word); setSubmitted(true)}} 
+            <button onClick={() => {getNoun(word); getVerb(word); getAdj(word); getAdv(word); setSubmitted(true); setSelectedWord(null)}} 
             className='font-mono text-white text-2xl bg-zinc-800 p-3 rounded-full px-10 my-4 button'>
                 Search
             </button>
