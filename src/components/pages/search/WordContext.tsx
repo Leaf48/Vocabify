@@ -1,7 +1,7 @@
 import axios from "axios";
 import * as cheerio from "cheerio"
 import { createContext, useState } from "react";
-import { IWord, IWordDefinition } from "./constants";
+import { IWord, IWordDefinition } from "./Constants";
 
 interface IWordContext{
     word: string
@@ -25,11 +25,11 @@ interface IWordContext{
 }
 
 const apis = {
-    "noun": "http://192.168.2.169:5000/scrape?url=https://www.wordhippo.com/what-is/the-noun-for/",
-    "verb": "http://192.168.2.169:5000/scrape?url=https://www.wordhippo.com/what-is/the-verb-for/",
-    "adjective": "http://192.168.2.169:5000/scrape?url=https://www.wordhippo.com/what-is/the-adjective-for/",
-    "adverb": "http://192.168.2.169:5000/scrape?url=https://www.wordhippo.com/what-is/the-adverb-for/",
-  }
+    "noun": process.env.REACT_APP_PROXY_SERVER + "scrape?url=https://www.wordhippo.com/what-is/the-noun-for/",
+    "verb": process.env.REACT_APP_PROXY_SERVER + "scrape?url=https://www.wordhippo.com/what-is/the-verb-for/",
+    "adjective": process.env.REACT_APP_PROXY_SERVER + "scrape?url=https://www.wordhippo.com/what-is/the-adjective-for/",
+    "adverb": process.env.REACT_APP_PROXY_SERVER + "scrape?url=https://www.wordhippo.com/what-is/the-adverb-for/",
+}
 
 export const WordContext = createContext<IWordContext>({
     word: "",

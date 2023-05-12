@@ -25,6 +25,7 @@ const InputForm = () => {
         getAdj(word)
         getAdv(word)
         setSubmitted(true)
+        setSelectedWord(null)
     }
     
     return (

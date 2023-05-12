@@ -1,6 +1,3 @@
-// export interface IType{
-//     type: "Noun" | "Verb" | "Adjective" | "Adverb"
-// }
 export interface IWord {
     type: "Noun" | "Verb" | "Adjective" | "Adverb"
     word: string

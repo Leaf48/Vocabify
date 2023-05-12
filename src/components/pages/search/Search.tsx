@@ -1,33 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react'
-import axios from 'axios'
-import * as cheerio from "cheerio"
+import { useContext, useEffect, useState } from 'react'
 import { WordContext } from './WordContext'
 import InputForm from './InputForm'
-import { IWord, IWordDefinition } from './constants'
-import { Configuration, OpenAIApi } from 'openai'
+import { IWord, IWordDefinition } from './Constants'
+import { completion } from './AISummarize'
 
-const configuration = new Configuration({
-  apiKey: ""
-})
-const openapi = new OpenAIApi(configuration)
 
-const completion =  async (prompt: string) => {
-  const result = await openapi.createChatCompletion({
-    model: "gpt-3.5-turbo",
-    messages: [{
-      role: "user",
-      content: "Sum up the following definition in 1 sentence."
-    },
-    {
-      role: "assistant",
-      content: prompt
-    }
-    ]
-  })
-
-  console.log(result.data.choices[0].message?.content)
-  return result.data.choices[0].message?.content
-}
 
 
 function Search() {
@@ -38,11 +15,13 @@ function Search() {
   const [summary, setSummary] = useState<string>("")
 
   useEffect(() => {
-    const sumup = async () => {
-      const r = await completion(selectedWord?.meaning ? selectedWord.meaning : "")
-      setSummary(String(r))
+    if(selectedWord){
+      const sumup = async () => {
+        const r = await completion(selectedWord?.meaning ? selectedWord.meaning : "")
+        setSummary(String(r))
+      }
+      sumup()
     }
-    sumup()
   }, [selectedWord])
 
 
@@ -55,9 +34,10 @@ function Search() {
       <InputForm />
 
       {selectedWord &&
-        <div className='text-white text-6xl'>
-          <div>Word: <p className='text-lg'>{selectedWord.word}</p></div>
-          <div>Definition: <p className='text-lg'>{summary}</p></div>
+        <div className='text-white text-6xl m-5'>
+          <div>Word: <p className='text-lg my-3'>{selectedWord.word}</p></div>
+          <div>AI Summarize: <p className='text-lg my-3'>{summary}</p></div>
+          <div>Definition: <p className='text-lg my-3'>{selectedWord.meaning}</p></div>
         </div>
         
       }
