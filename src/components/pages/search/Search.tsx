@@ -4,15 +4,12 @@ import InputForm from './InputForm'
 import { IWord, IWordDefinition } from './Constants'
 import { completion } from './AISummarize'
 
-
-
-
 function Search() {
   const {nounWord, verbWord, adjectiveWord, adverbWord ,submitted, selectedWord, setSelectedWord} = useContext(WordContext)
 
   const part: Array<IWord | null> = [nounWord, verbWord, adjectiveWord, adverbWord]
 
-  const [summary, setSummary] = useState<string>("")
+  const [summary, setSummary] = useState<string | null>(null)
 
   useEffect(() => {
     if(selectedWord){
@@ -36,7 +33,10 @@ function Search() {
       {selectedWord &&
         <div className='text-white text-6xl m-5'>
           <div>Word: <p className='text-lg my-3'>{selectedWord.word}</p></div>
-          <div>AI Summarize: <p className='text-lg my-3'>{summary}</p></div>
+          {
+            summary &&
+              <div>AI Summarize: <p className='text-lg my-3'>{summary}</p></div>
+          }
           <div>Definition: <p className='text-lg my-3'>{selectedWord.meaning}</p></div>
         </div>
         
