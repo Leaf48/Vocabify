@@ -13,7 +13,10 @@ const openapi = new OpenAIApi(configuration)
 const app = express()
 const port = 5000
 
-app.use(cors())
+app.use(cors({
+    origin: [process.env.HOST_URL, "http://" + process.env.HOST_URL],
+    optionsSuccessStatus: 200
+}))
 
 app.get("/scrape", async(req, res) => {
     const url = req.query["url"]

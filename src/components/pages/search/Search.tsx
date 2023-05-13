@@ -15,7 +15,7 @@ function Search() {
     if(selectedWord){
       const sumup = async () => {
         const r = await completion(selectedWord?.meaning ? selectedWord.meaning : "")
-        setSummary(String(r))
+        setSummary(r)
       }
       sumup()
     }
@@ -34,7 +34,7 @@ function Search() {
         <div className='text-white text-6xl m-5'>
           <div>Word: <p className='text-lg my-3'>{selectedWord.word}</p></div>
           {
-            summary &&
+            summary && summary !== "" &&
               <div>AI Summarize: <p className='text-lg my-3'>{summary}</p></div>
           }
           <div>Definition: <p className='text-lg my-3'>{selectedWord.meaning}</p></div>
