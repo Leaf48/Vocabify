@@ -3,6 +3,8 @@ import * as cheerio from "cheerio"
 import { createContext, useState } from "react";
 import { IWord, IWordDefinition } from "./Constants";
 
+import jwt from "jsonwebtoken";
+
 interface IWordContext{
     word: string
     setWord: React.Dispatch<React.SetStateAction<string>>
@@ -51,6 +53,12 @@ export const WordContext = createContext<IWordContext>({
     adverbWord: null,
     setAdverbWord: () => {},
 })
+
+// const createToken = (): string => {
+//     const secretKey = String(process.env.REACT_APP_SECRET)
+//     const token = jwt.sign({timestamp: Date.now()}, secretKey, {expiresIn: "1m"})
+//     return String(token)
+// }
 
 // scrape only word
 const scrape = async (url: string, word: string, type: "Noun" | "Verb" | "Adjective" | "Adverb"): Promise<IWord | null> => {

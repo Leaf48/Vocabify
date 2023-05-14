@@ -3,6 +3,7 @@ const axios = require("axios")
 const cors = require("cors")
 const rateLimit = require("express-rate-limit")
 const {Configuration, OpenAIApi} = require("openai")
+const jwt = require("jsonwebtoken")
 const dotenv = require("dotenv").config()
 
 const configuration = new Configuration({
@@ -36,6 +37,7 @@ const chatGPTLimiter = rateLimit({
     standardHeaders: true,
     legacyHeaders: false
 })
+
 app.get("/ai", chatGPTLimiter, async (req, res) => {
     
     const definition = req.query["definition"]
