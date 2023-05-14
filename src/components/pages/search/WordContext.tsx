@@ -3,7 +3,7 @@ import * as cheerio from "cheerio"
 import { createContext, useState } from "react";
 import { IWord, IWordDefinition } from "./Constants";
 
-import jwt from "jsonwebtoken";
+// import jwt from "jsonwebtoken";
 
 interface IWordContext{
     word: string
