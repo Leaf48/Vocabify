@@ -2,9 +2,8 @@ const express = require("express")
 const axios = require("axios")
 const cors = require("cors")
 const rateLimit = require("express-rate-limit")
-const {result} = require("./src/api_ai")
+const {completion} = require("./src/api_ai")
 
-const jwt = require("jsonwebtoken")
 const dotenv = require("dotenv").config()
 
 const session = require("express-session")
@@ -20,31 +19,37 @@ app.use(cors({
     resave: false,
     saveUninitialized: true,
     cookie: {
-        secure: false,
+        secure: true,
         httpOnly: true
     }
 }))
 
-app.get("/hello", (req, res) => {
-    // if(!req.session.id){
-    //     req.session.id = req.sessionID
-    // }
-    // res.json({
-    //     session_id: req.session.id
-    // })
-    res.send("hello")
+app.get("/session", (req, res) => {
+    if(!req.session.id){
+        req.session.id = req.sessionID
+    }
+    res.json({
+        session_id: req.session.id
+    })
 })
 
 app.get("/scrape", async(req, res) => {
     const url = req.query["url"]
+    
+    if(req.sessionID){
+        try{
+            const response = await axios.get(url)
 
-    try{
-        const response = await axios.get(url)
-
-        res.send(response.data)
-    } catch(err) {
-        res.status(500).send({error: "Error fetching the URL"})
+            res.send(response.data)
+        } catch(err) {
+            res.status(500).send({error: "Error fetching the URL"})
+        }
+    }else{
+        res.status(401).json({
+            error: "Invalid session ID"
+        })
     }
+
 })
 
 const chatGPTLimiter = rateLimit({
@@ -60,7 +65,7 @@ app.get("/ai", chatGPTLimiter, async (req, res) => {
 
     if(definition && definition !== ""){
         try{
-            const r = await result(definition)
+            const r = await completion(definition)
             res.send(r)
         }catch(error){
             res.status(500).send({error: "Definition is not provided"})

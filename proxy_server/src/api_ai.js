@@ -6,8 +6,8 @@ const configuration = new Configuration({
 })
 const openapi = new OpenAIApi(configuration)
 
-export const result = async (definition) => {
-    await openapi.createChatCompletion({
+exports.completion = async (definition) => {
+    const result = await openapi.createChatCompletion({
         model: "gpt-3.5-turbo",
         messages: [
             {
