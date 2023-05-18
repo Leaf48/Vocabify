@@ -4,8 +4,8 @@ import { createContext, useState } from "react";
 import { IWord, IWordDefinition } from "./Constants";
 
 interface IWordContext{
-    word: string
-    setWord: React.Dispatch<React.SetStateAction<string>>
+    searchedWord: string
+    setSearchedWord: React.Dispatch<React.SetStateAction<string>>
     getNoun(word: string): void
     getVerb(word: string): void
     getAdj(word: string): void
@@ -32,8 +32,8 @@ const apis = {
 }
 
 export const WordContext = createContext<IWordContext>({
-    word: "",
-    setWord: () => {},
+    searchedWord: "",
+    setSearchedWord: () => {},
     getNoun: () => {},
     getVerb: () => {},
     getAdj: () => {},
@@ -101,7 +101,7 @@ export const WordProvider = (props: any) => {
     const {children} = props
 
     // set word
-    const [word, setWord] = useState<string>("")
+    const [searchedWord, setSearchedWord] = useState<string>("")
 
     // 品詞
     const [nounWord, setNounWord] = useState<IWord | null>(null)
@@ -139,7 +139,7 @@ export const WordProvider = (props: any) => {
 
     return (
         <WordContext.Provider value={{
-            word, setWord, 
+            searchedWord, setSearchedWord, 
             getNoun, getVerb, getAdv, getAdj, 
             nounWord, setNounWord, verbWord, setVerbWord, adjectiveWord, setAdjectiveWord, adverbWord, setAdverbWord,
             submitted, setSubmitted,

@@ -5,7 +5,7 @@ import { IWord, IWordDefinition } from './Constants'
 import { completion } from './AISummarize'
 
 function Search() {
-  const {nounWord, verbWord, adjectiveWord, adverbWord ,submitted, selectedWord, setSelectedWord} = useContext(WordContext)
+  const {searchedWord, nounWord, verbWord, adjectiveWord, adverbWord ,submitted, selectedWord, setSelectedWord} = useContext(WordContext)
 
   const part: Array<IWord | null> = [nounWord, verbWord, adjectiveWord, adverbWord]
 
@@ -32,7 +32,7 @@ function Search() {
 
       {selectedWord &&
         <div className='text-white text-6xl m-5'>
-          <div>Word: <p className='text-lg my-3'>{selectedWord.word}</p></div>
+          <div>{selectedWord.type} / Word: <p className='text-lg my-3'>{selectedWord.word}</p></div>
           {
             summary && summary !== "" &&
               <div>AI Summarize: <p className='text-lg my-3'>{summary}</p></div>
@@ -61,6 +61,7 @@ function Search() {
                         <span key={j} onClick={() => handleClick(word)} 
                         className={`
                           hover:text-red-400 ease-in-out duration-300
+                          ${(searchedWord === word.word)? "text-orange-400" : ""}
                           ${(selectedWord?.word === word.word) && (selectedWord.type === word.type) ? "text-red-400" : ""}
                         `}
                         >
